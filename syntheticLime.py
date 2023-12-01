@@ -137,7 +137,7 @@ for i in np.linspace(0, 1, 11):
 
     # Explanation Shift
     ESD = ExplanationShiftDetector(
-        model=XGBClassifier(),
+        model=XGBClassifier(random_state=0),
         gmodel=Pipeline(
             [
                 ("scaler", StandardScaler()),
@@ -158,7 +158,7 @@ for i in np.linspace(0, 1, 11):
         mode="regression",
     )
     auc_lime = train_esd(
-        X_te, X_ood, XGBClassifier().fit(X_tr, y_tr), LogisticRegression()
+        X_te, X_ood, XGBClassifier(random_state=0).fit(X_tr, y_tr), LogisticRegression()
     )
 
     res.append([rho, input_ks, classifierDrift, output_ks, wass, unc, esd, auc_lime])

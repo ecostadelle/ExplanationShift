@@ -102,7 +102,7 @@ xgb_list = []
 xgb_param = np.linspace(1, 10, 10)
 for i in xgb_param:
     detector = ExplanationShiftDetector(
-        model=XGBRegressor(n_estimators=int(i), max_depth=int(i)),
+        model=XGBRegressor(n_estimators=int(i), max_depth=int(i), random_state=0),
         gmodel=LogisticRegression(),
     )
     detector.fit(X_tr.drop(columns=["Country"]), y_tr, X_new)
@@ -170,8 +170,8 @@ xgb_list = []
 xgb_param = np.linspace(1, 10, 10)
 for i in xgb_param:
     detector = ExplanationShiftDetector(
-        model=XGBRegressor(n_estimators=int(i), max_depth=int(i)),
-        gmodel=XGBClassifier(),
+        model=XGBRegressor(n_estimators=int(i), max_depth=int(i), random_state=0),
+        gmodel=XGBClassifier(random_state=0),
     )
     detector.fit(X_tr.drop(columns=["Country"]), y_tr, X_new)
 
@@ -184,7 +184,7 @@ dt_list = []
 dt_param = np.linspace(1, 10, 9)
 for i in dt_param:
     detector = ExplanationShiftDetector(
-        model=DecisionTreeRegressor(max_depth=int(i)), gmodel=XGBClassifier()
+        model=DecisionTreeRegressor(max_depth=int(i)), gmodel=XGBClassifier(random_state=0)
     )
     detector.fit(X_tr.drop(columns=["Country"]), y_tr, X_new)
 
@@ -197,7 +197,7 @@ rf_param = np.linspace(1, 10, 10)
 for i in tqdm(rf_param):
     detector = ExplanationShiftDetector(
         model=RandomForestRegressor(n_estimators=int(i), max_depth=int(i)),
-        gmodel=XGBClassifier(),
+        gmodel=XGBClassifier(random_state=0),
     )
 
     detector.fit(X_tr.drop(columns=["Country"]), y_tr, X_new)

@@ -16,7 +16,7 @@ class ShapEstimator(BaseEstimator, ClassifierMixin):
     import xgboost
     from sklearn.model_selection import cross_val_predict
     X, y = shap.datasets.boston()
-    se = ShapEstimator(model=xgboost.XGBRegressor())
+    se = ShapEstimator(model=xgboost.XGBRegressor(random_state=0))
     shap_pred = cross_val_predict(se, X, y, cv=3)
     """
 

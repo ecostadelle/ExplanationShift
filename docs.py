@@ -7,7 +7,7 @@ from tools.explanationShift import ExplanationShiftDetector
 X, y = make_blobs(n_samples=2000, centers=2, n_features=5, random_state=0)
 X_ood, _ = make_blobs(n_samples=1000, centers=1, n_features=5, random_state=0)
 # %%
-detector = ExplanationShiftDetector(model=XGBRegressor(), gmodel=LogisticRegression())
+detector = ExplanationShiftDetector(model=XGBRegressor(random_state=0), gmodel=LogisticRegression())
 detector.fit(X, y, X_ood)
 # %%
 detector.get_auc_val()

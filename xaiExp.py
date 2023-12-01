@@ -49,7 +49,7 @@ X_cal_1, X_cal_2, y_cal_1, y_cal_2 = train_test_split(
 X, y = X_cal_1, y_cal_1
 # %%
 detector = ExplanationShiftDetector(
-    model=XGBClassifier(),
+    model=XGBClassifier(random_state=0),
     gmodel=Pipeline(
         [
             ("scaler", StandardScaler()),

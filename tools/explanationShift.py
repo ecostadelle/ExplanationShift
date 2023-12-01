@@ -24,7 +24,7 @@ class ExplanationShiftDetector(BaseEstimator, ClassifierMixin):
     >>> X_tr, X_te, y_tr, y_te = train_test_split(X, y, test_size=0.5, random_state=0)
     >>> X_ood,y_ood = make_blobs(n_samples=1000, centers=1, n_features=5, random_state=0)
 
-    >>> detector = ExplanationShiftDetector(model=XGBRegressor(),gmodel=LogisticRegression())
+    >>> detector = ExplanationShiftDetector(model=XGBRegressor(random_state=0),gmodel=LogisticRegression())
     >>> detector.fit(X_tr, y_tr, X_ood)
     >>> detector.get_auc_val()
     # 0.76
@@ -214,7 +214,7 @@ class ExplanationShiftDetector(BaseEstimator, ClassifierMixin):
         X_tr, X_te, y_tr, y_te = train_test_split(X, y, test_size=0.5, random_state=0)
         X_ood,y_ood = make_blobs(n_samples=1000, centers=1, n_features=5, random_state=0)
 
-        detector = ExplanationShiftDetector(model=XGBRegressor(),gmodel=LogisticRegression())
+        detector = ExplanationShiftDetector(model=XGBRegressor(random_state=0),gmodel=LogisticRegression())
         detector.fit(X_tr, y_tr, X_ood)
         detector.get_auc_val()
         # 0.76

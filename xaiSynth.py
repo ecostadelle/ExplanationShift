@@ -37,7 +37,7 @@ if CASE_A:
     y = x2 + x3
 else:
     y = x3
-model = XGBRegressor().fit(X_tr_id, y)
+model = XGBRegressor(random_state=0).fit(X_tr_id, y)
 
 
 dp = []

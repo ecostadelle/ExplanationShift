@@ -40,7 +40,7 @@ X_train, X_test, y_train, y_test = train_test_split(
     X.drop("ood", axis=1), X["ood"], test_size=0.5, random_state=0
 )
 # IS OOD?
-m = XGBClassifier().fit(X_train, y_train)
+m = XGBClassifier(random_state=0).fit(X_train, y_train)
 # AUC
 roc_auc_score(y_test, m.predict_proba(X_test)[:, 1])
 
@@ -49,7 +49,7 @@ X_train, X_test, y_train, y_test = train_test_split(
     X.drop("label", axis=1), X["label"], test_size=0.5, random_state=0
 )
 # IS OOD?
-m = XGBClassifier().fit(X_train, y_train)
+m = XGBClassifier(random_state=0).fit(X_train, y_train)
 # AUC
 roc_auc_score(y_test, m.predict_proba(X_test)[:, 1])
 # %%
@@ -82,7 +82,7 @@ OOD_train = pd.concat([X_train, X_ood_tr])
 z_train = np.concatenate([np.zeros_like(y_train), np.ones_like(y_ood_tr)])
 
 # %%
-model = XGBRegressor().fit(X_train, y_train)
+model = XGBRegressor(random_state=0).fit(X_train, y_train)
 # %%
 detector = ExplanationShiftDetector(
     model=model, gmodel=LogisticRegression(penalty="l1", solver="liblinear")

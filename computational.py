@@ -28,7 +28,7 @@ for n_sample in n_samples:
     # Convert X to dataframe
     X = pd.DataFrame(X)
     # Fit model
-    model = XGBRegressor().fit(X, y)
+    model = XGBRegressor(random_state=0).fit(X, y)
     # Name columns with loop
     for i in range(X.shape[1]):
         X.rename(columns={i: "x" + str(i)}, inplace=True)
@@ -87,7 +87,7 @@ for n_feature in n_features:
     # Convert X to dataframe
     X = pd.DataFrame(X)
     # Fit model
-    model = XGBRegressor().fit(X, y)
+    model = XGBRegressor(random_state=0).fit(X, y)
     # Name columns with loop
     for i in range(X.shape[1]):
         X.rename(columns={i: "x" + str(i)}, inplace=True)

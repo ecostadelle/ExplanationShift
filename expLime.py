@@ -40,7 +40,7 @@ X, y, X_ood, y_ood = data.get_data()
 data = GetData(type="real", datasets="ACSIncome")
 X, y = data.get_state(state="CA", year="2018", N=20_000)
 # %%
-model = XGBRegressor()
+model = XGBRegressor(random_state=0)
 model.fit(X, y)
 # %%
 explainer = lime.lime_tabular.LimeTabularExplainer(
@@ -106,7 +106,7 @@ for r in [6]:
     X_ood = df[df["Race"] == r].drop("y", axis=1)
 
     detector = ExplanationShiftDetector(
-        model=XGBClassifier(), gmodel=LogisticRegression()
+        model=XGBClassifier(random_state=0), gmodel=LogisticRegression()
     )
 
     # Concatenate the training and validation sets
@@ -130,7 +130,7 @@ for r in [6]:
             train_esd(
                 X_te.drop(columns=["Race"]),
                 X_new,
-                XGBClassifier().fit(X_tr.drop(columns=["Race"]), y_tr),
+                XGBClassifier(random_state=0).fit(X_tr.drop(columns=["Race"]), y_tr),
                 LogisticRegression(),
             )
         )

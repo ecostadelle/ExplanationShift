@@ -62,7 +62,7 @@ Fit Explanation Shift Detector where the classifier is a Gradient Boosting Decis
 
 ```python
 # Option 1: fit the detector when there is a trained model
-model = XGBClassifier().fit(X_tr, y_tr)
+model = XGBClassifier(random_state=0).fit(X_tr, y_tr)
 
 detector = ExplanationShiftDetector(model=model, gmodel=LogisticRegression())
 
@@ -110,13 +110,13 @@ X_new = pd.concat([X_te, X_ood_te])
 y_new = np.concatenate([np.zeros_like(y_te), np.ones_like(y_ood_te)])
 
 # Fit the model
-model = XGBClassifier().fit(X_tr, y_tr)
+model = XGBClassifier(random_state=0).fit(X_tr, y_tr)
 ```
 
 The model is trained on CA data, and evaluated on data with OOD
 
 ```python
-detector = ExplanationShiftDetector(model=model, gmodel=XGBClassifier())
+detector = ExplanationShiftDetector(model=model, gmodel=XGBClassifier(random_state=0))
 detector.fit_detector(X_te, X_ood_te)
 roc_auc_score(y_new, detector.predict_proba(X_new)[:, 1])
 # 0.96

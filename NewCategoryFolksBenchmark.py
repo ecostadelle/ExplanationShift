@@ -78,7 +78,7 @@ X_tr, X_te, y_tr, y_te = train_test_split(
 )
 X_ood = df[df["Race"] == r].drop("y", axis=1)
 
-detector = ExplanationShiftDetector(model=XGBClassifier(), gmodel=LogisticRegression())
+detector = ExplanationShiftDetector(model=XGBClassifier(random_state=0), gmodel=LogisticRegression())
 
 # Concatenate the training and validation sets
 params = np.linspace(0.05, 0.99, 10)
@@ -102,7 +102,7 @@ for i in tqdm(params):
 
     # Explanation Shift XGB
     detector = ExplanationShiftDetector(
-        model=XGBClassifier(), gmodel=LogisticRegression()
+        model=XGBClassifier(random_state=0), gmodel=LogisticRegression()
     )
     detector.fit(X_tr.drop(columns=["Race"]), y_tr, X_new)
     aucs_xgb.append(detector.get_auc_val())
@@ -114,7 +114,7 @@ for i in tqdm(params):
 
     # Explanation Shift Log
     detector = ExplanationShiftDetector(
-        model=LogisticRegression(), gmodel=XGBClassifier(), masker=True
+        model=LogisticRegression(), gmodel=XGBClassifier(random_state=0), masker=True
     )
     detector.fit(X_tr.drop(columns=["Race"]), y_tr, X_new)
     aucs_log.append(detector.get_auc_val())
@@ -133,7 +133,7 @@ for i in tqdm(params):
 
     # NDCG - XGB
     ## Shap values in Train
-    model = XGBClassifier().fit(X_tr.drop(columns="Race").values, y_tr)
+    model = XGBClassifier(random_state=0).fit(X_tr.drop(columns="Race").values, y_tr)
     explainer = shap.Explainer(model)
     shap_values_tr = explainer(X_tr.drop(columns="Race").values)
     shap_df_tr = pd.DataFrame(shap_values_tr.values)
@@ -293,7 +293,7 @@ from sklearn.tree import DecisionTreeRegressor, DecisionTreeClassifier
 from sklearn.neural_network import MLPRegressor, MLPClassifier
 
 list_estimator = [
-    XGBClassifier(),
+    XGBClassifier(random_state=0),
     LogisticRegression(),
     Lasso(),
     Ridge(),
@@ -302,7 +302,7 @@ list_estimator = [
     MLPRegressor(),
 ]
 list_detector = [
-    XGBClassifier(),
+    XGBClassifier(random_state=0),
     LogisticRegression(),
     SVC(probability=True),
     RandomForestClassifier(),

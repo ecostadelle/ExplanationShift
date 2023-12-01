@@ -45,7 +45,7 @@ for r in [2, 3, 6, 8, 9]:
     X_ood = df[df["Race"] == r].drop("y", axis=1)
 
     detector = ExplanationShiftDetector(
-        model=XGBClassifier(), gmodel=LogisticRegression()
+        model=XGBClassifier(random_state=0), gmodel=LogisticRegression()
     )
 
     # Concatenate the training and validation sets

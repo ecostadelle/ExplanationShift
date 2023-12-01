@@ -24,7 +24,7 @@ import os
 import sys
 
 
-def c2st(x, y, model=XGBClassifier()):
+def c2st(x, y, model=XGBClassifier(random_state=0)):
     # Convert to dataframes
     # Dinamic columns depending on lenght of x
     try:

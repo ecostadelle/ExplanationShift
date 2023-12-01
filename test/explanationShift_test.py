@@ -163,7 +163,7 @@ def test_tree_shap():
     Check that the shap values are returned correctly for the tree models.
     """
     esd = ExplanationShiftDetector(
-        model=XGBRegressor(), gmodel=LogisticRegression(), masker=True
+        model=XGBRegressor(random_state=0), gmodel=LogisticRegression(), masker=True
     )
     esd.fit(X, y, X_ood)
     shap_values = esd.get_explanations(X)
@@ -172,7 +172,7 @@ def test_tree_shap():
     # Assert that there is non NaNs
     assert not np.any(np.isnan(shap_values))
 
-    esd = ExplanationShiftDetector(model=XGBRegressor(), gmodel=LogisticRegression())
+    esd = ExplanationShiftDetector(model=XGBRegressor(random_state=0), gmodel=LogisticRegression())
     esd.fit(X, y, X_ood)
     shap_values2 = esd.get_explanations(X)
     # Assert shape
@@ -186,7 +186,7 @@ def test_tree_shap():
 def test_explain_detector():
     for space in ["input", "prediction", "explanation"]:
         esd = ExplanationShiftDetector(
-            model=XGBClassifier(), gmodel=XGBClassifier(), space=space
+            model=XGBClassifier(random_state=0), gmodel=XGBClassifier(random_state=0), space=space
         )
         esd.fit(X, y, X_ood)
         esd.explain_detector()

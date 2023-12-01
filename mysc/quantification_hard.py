@@ -41,7 +41,7 @@ for datatype in tqdm(
         X, y = data.get_state(state=state[:2], year="20" + state[2:], N=20_000)
 
         # What is the most important feature?
-        model = XGBClassifier()
+        model = XGBClassifier(random_state=0)
         model.fit(X, y)
         importances = model.feature_importances_
         # We select the most important feature

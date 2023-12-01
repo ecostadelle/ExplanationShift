@@ -53,7 +53,7 @@ for r in df["Race"].unique():
     X_ood = df[df["Race"] == r].drop("y", axis=1)
 
     detector = ExplanationShiftDetector(
-        model=XGBClassifier(), gmodel=LogisticRegression()
+        model=XGBClassifier(random_state=0), gmodel=LogisticRegression()
     )
 
     # Concatenate the training and validation sets
@@ -66,21 +66,21 @@ for r in df["Race"].unique():
 
     # Explanation Shift XGB
     detector = ExplanationShiftDetector(
-        model=XGBClassifier(), gmodel=LogisticRegression()
+        model=XGBClassifier(random_state=0), gmodel=LogisticRegression()
     )
     detector.fit(X_tr.drop(columns=["Race"]), y_tr, X_new)
     aucs_xgb.append(detector.get_auc_val())
 
     # Explanation Shift Log
     detector = ExplanationShiftDetector(
-        model=LogisticRegression(), gmodel=XGBClassifier(), masker=True
+        model=LogisticRegression(), gmodel=XGBClassifier(random_state=0), masker=True
     )
     detector.fit(X_tr.drop(columns=["Race"]), y_tr, X_new)
     aucs_log.append(detector.get_auc_val())
 
     # NDCG - XGB
     ## Shap values in Train
-    model = XGBClassifier().fit(X_tr.drop(columns="Race").values, y_tr)
+    model = XGBClassifier(random_state=0).fit(X_tr.drop(columns="Race").values, y_tr)
     explainer = shap.Explainer(model)
     shap_values_tr = explainer(X_tr.drop(columns="Race").values)
     shap_df_tr = pd.DataFrame(shap_values_tr.values)

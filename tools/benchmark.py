@@ -133,7 +133,7 @@ def benchmark_experiment(datasets: list, model, classification: str = "classific
                     ood_performance = ood_error - test_error
                 elif classification == "explainableAI":
                     # Explainer predictor
-                    se = ShapEstimator(model=xgboost.XGBRegressor())
+                    se = ShapEstimator(model=xgboost.XGBRegressor(random_state=0))
                     shap_pred_tr = cross_val_predict(se, X_tr, y_tr, cv=3)
                     shap_pred_tr = pd.DataFrame(shap_pred_tr, columns=X_tr.columns)
                     shap_pred_tr = shap_pred_tr.add_suffix("_shap")

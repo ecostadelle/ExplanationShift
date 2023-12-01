@@ -91,7 +91,7 @@ for i in np.linspace(0, 1, 11):
 
     # Explanation Shift
     ESD = ExplanationShiftDetector(
-        model=XGBClassifier(),
+        model=XGBClassifier(random_state=0),
         gmodel=Pipeline(
             [
                 ("scaler", StandardScaler()),

@@ -27,10 +27,10 @@ X_train, X_test, y_train, y_test = train_test_split(
 )
 # %%
 # Train two models
-model1 = XGBClassifier()
+model1 = XGBClassifier(random_state=0)
 model1.fit(X_train, y_train["y"])
 
-model2 = XGBClassifier()
+model2 = XGBClassifier(random_state=0)
 model2.fit(X_train, y_train["z"])
 
 # Score AUC models
